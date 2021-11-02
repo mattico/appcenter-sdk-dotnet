@@ -83,6 +83,30 @@ namespace Microsoft.AppCenter.Analytics
             AndroidAnalytics.TrackEvent(name, properties);
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void DisableAutomaticSessionGeneration(bool isDisabled)
+        {
+            //AndroidAnalytics.DisableAutomaticSessionGeneration(isDisabled);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void StartSession()
+        {
+            //AndroidAnalytics.StartSession();
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void EndSession()
+        {
+            //AndroidAnalytics.EndSession();
+        }
+
         ///// <summary>
         ///// Track a custom page.
         ///// </summary>

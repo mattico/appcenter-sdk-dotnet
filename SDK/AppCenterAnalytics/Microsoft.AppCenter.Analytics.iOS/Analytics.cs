@@ -90,6 +90,30 @@ namespace Microsoft.AppCenter.Analytics
             iOSAnalytics.TrackEvent(name);
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void DisableAutomaticSessionGeneration(bool isDisabled)
+        {
+            //iOSAnalytics.DisableAutomaticSessionGeneration(isDisabled);
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void StartSession()
+        {
+            //iOSAnalytics.StartSession();
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void EndSession()
+        {
+            //iOSAnalytics.EndSession();
+        }
+
         ///// <summary>
         ///// Track a custom page.
         ///// </summary>

@@ -62,6 +62,27 @@ namespace Microsoft.AppCenter.Analytics
         {
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void DisableAutomaticSessionGeneration(bool isDisabled)
+        {
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void StartSession()
+        {
+        }
+
+        /// <summary>
+        /// TODO
+        /// </summary>
+        public static void EndSession()
+        {
+        }
+
         ///// Track a custom page.
 
         ///// <summary>

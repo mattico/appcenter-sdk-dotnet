@@ -49,6 +49,21 @@ namespace Microsoft.AppCenter.Analytics.iOS.Bindings
         [Export("resetSharedInstance")]
         void ResetSharedInstance();
 
+        // + (void)disableAutomaticSessionGeneration:(BOOL)isDisabled
+        [Static]
+        [Export("disableAutomaticSessionGeneration:")]
+        void DisableAutomaticSessionGeneration(bool isDisabled);
+
+        // + (void)startSession
+        [Static]
+        [Export("startSession")]
+        void StartSession();
+
+        // + (void)endSession
+        [Static]
+        [Export("endSession")]
+        void EndSession();
+
         //// +(void)trackPage:(NSString *)pageName;
         //[Static]
         //[Export("trackPage:")]
