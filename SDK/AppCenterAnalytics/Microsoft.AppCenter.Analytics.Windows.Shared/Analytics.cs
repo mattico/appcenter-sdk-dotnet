@@ -23,6 +23,14 @@ namespace Microsoft.AppCenter.Analytics
 
         private static volatile Analytics _instanceField;
 
+        // Stores the value of whether automatic session generation value was set, null by default.
+        private bool? _isAutomaticSessionGenerationDisabled = null;
+
+        // Internal for testing purposes
+        private ISessionTracker _sessionTracker;
+
+        private readonly ISessionTrackerFactory _sessionTrackerFactory;
+
         public static Analytics Instance
         {
             get
@@ -89,14 +97,44 @@ namespace Microsoft.AppCenter.Analytics
             }
         }
 
+        /// <summary>
+        ///  Disable automatic session generation.
+        /// </summary>
+        /// <param name="isDisabled">True - if automatic session generation should be disabled, otherwise false.</param>
+        public static void DisableAutomaticSessionGeneration(bool isDisabled)
+        {
+            if (Instance.Channel != null)
+            {
+                AppCenterLog.Error(Instance.LogTag, $"The automatic session generation should be installed before App Center start.");
+                return;
+            }
+            if (Instance._sessionTracker == null)
+            {
+                Instance._isAutomaticSessionGenerationDisabled = isDisabled;
+                return;
+            }
+            Instance._sessionTracker.DisableAutomaticSessionGeneration(isDisabled);
+        }
+
+        /// <summary>
+        /// Start a new session if automatic session generation was disabled, otherwise nothing.
+        /// </summary>
+        public static void StartSession()
+        {
+            Instance._sessionTracker?.StartSession();
+        }
+
+        /// <summary>
+        /// End session if automatic session generation was disabled, otherwise nothing.
+        /// </summary>
+        public static void EndSession()
+        {
+            Instance._sessionTracker?.EndSession();
+        }
+
         #endregion
 
         #region instance
-
-        // Internal for testing purposes
-        private ISessionTracker _sessionTracker;
-
-        private readonly ISessionTrackerFactory _sessionTrackerFactory;
 
         private Analytics()
         {
@@ -166,6 +204,10 @@ namespace Microsoft.AppCenter.Analytics
                 if (enabled && ChannelGroup != null && _sessionTracker == null)
                 {
                     _sessionTracker = CreateSessionTracker(ChannelGroup, Channel, ApplicationSettings);
+                    if (_isAutomaticSessionGenerationDisabled != null)
+                    {
+                        _sessionTracker.DisableAutomaticSessionGeneration(_isAutomaticSessionGenerationDisabled.Value);
+                    }
                     if (!ApplicationLifecycleHelper.Instance.IsSuspended)
                     {
                         _sessionTracker.Resume();

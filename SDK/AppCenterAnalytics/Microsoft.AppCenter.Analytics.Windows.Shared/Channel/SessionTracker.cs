@@ -32,6 +32,9 @@ namespace Microsoft.AppCenter.Analytics.Channel
         // so we track the current session state.
         private SessionState _currentSessionState = SessionState.None;
 
+        // Stores the value of whether automatic session generation is enabled, false by default.
+        private bool isAutomaticSessionGenerationDisabled = false;
+
         // Some fields are internal for testing
         internal static long SessionTimeout = 20000;
         private readonly IChannelUnit _channel;
@@ -55,6 +58,10 @@ namespace Microsoft.AppCenter.Analytics.Channel
         {
             lock (_lockObject)
             {
+                if (isAutomaticSessionGenerationDisabled) { 
+                    AppCenterLog.Debug(Analytics.Instance.LogTag, "Automatic session generation is disabled. Skip tracking a session status request.");
+                    return;
+                }
                 if (_currentSessionState == SessionState.Inactive)
                 {
                     AppCenterLog.Warn(Analytics.Instance.LogTag, "Trying to pause already inactive session.");
@@ -70,6 +77,11 @@ namespace Microsoft.AppCenter.Analytics.Channel
         {
             lock (_lockObject)
             {
+                if (isAutomaticSessionGenerationDisabled)
+                {
+                    AppCenterLog.Debug(Analytics.Instance.LogTag, "Automatic session generation is disabled. Skip tracking a session status request.");
+                    return;
+                }
                 if (_currentSessionState == SessionState.Active)
                 {
                     AppCenterLog.Warn(Analytics.Instance.LogTag, "Trying to resume already active session.");
@@ -86,6 +98,11 @@ namespace Microsoft.AppCenter.Analytics.Channel
         {
             lock (_lockObject)
             {
+                if (isAutomaticSessionGenerationDisabled)
+                {
+                    AppCenterLog.Debug(Analytics.Instance.LogTag, "Automatic session generation is disabled. Skip tracking a session status request.");
+                    return;
+                }
                 SessionContext.SessionId = null;
             }
         }
@@ -107,9 +124,65 @@ namespace Microsoft.AppCenter.Analytics.Channel
                 {
                     e.Log.Sid = SessionContext.SessionId;
                 }
-
                 _lastQueuedLogTime = TimeHelper.CurrentTimeInMilliseconds();
             }
+        }
+
+        /// <summary>
+        ///  Disable automatic session generation.
+        /// </summary>
+        /// <param name="isDisabled">True - if automatic session generation should be disabled, otherwise false.</param>
+        public void DisableAutomaticSessionGeneration(bool isDisabled)
+        {
+            lock (_lockObject)
+            {
+                isAutomaticSessionGenerationDisabled = isDisabled;
+                var status = isDisabled ? "enabled" : "disabled";
+                AppCenterLog.Debug(Analytics.Instance.LogTag, $"Automatic session generation is {status}.");
+            }
+        }
+
+        /// <summary>
+        /// Start a new session if automatic session generation was disabled, otherwise nothing.
+        /// </summary>
+        public void StartSession()
+        {
+            lock (_lockObject)
+            {
+                if (!isAutomaticSessionGenerationDisabled)
+                {
+                    AppCenterLog.Debug(Analytics.Instance.LogTag, $"Automatic session generation is enabled. Skip start a new session request.");
+                    return;
+                }
+                SendStartSession();
+                AppCenterLog.Debug(Analytics.Instance.LogTag, $"Start a new session with id: {SessionContext.SessionId}.");
+
+            }
+        }
+
+        /// <summary>
+        /// End session if automatic session generation was disabled, otherwise nothing.
+        /// </summary>
+        public void EndSession()
+        {
+            lock (_lockObject)
+            {
+                if (!isAutomaticSessionGenerationDisabled)
+                {
+                    AppCenterLog.Debug(Analytics.Instance.LogTag, $"Automatic session generation is enabled. Skip end session request.");
+                    return;
+                }
+                AppCenterLog.Debug(Analytics.Instance.LogTag, $"End a session with id: {SessionContext.SessionId}.");
+                SessionContext.SessionId = null;
+            }
+        }
+
+        private void SendStartSession() 
+        {
+            SessionContext.SessionId = Guid.NewGuid();
+            _lastQueuedLogTime = TimeHelper.CurrentTimeInMilliseconds();
+            var startSessionLog = new StartSessionLog { Sid = SessionContext.SessionId };
+            _channel.EnqueueAsync(startSessionLog).ConfigureAwait(false);
         }
 
         private void SendStartSessionIfNeeded()
@@ -119,11 +192,7 @@ namespace Microsoft.AppCenter.Analytics.Channel
             {
                 return;
             }
-
-            SessionContext.SessionId = Guid.NewGuid();
-            _lastQueuedLogTime = TimeHelper.CurrentTimeInMilliseconds();
-            var startSessionLog = new StartSessionLog { Sid = SessionContext.SessionId };
-            _channel.EnqueueAsync(startSessionLog).ConfigureAwait(false);
+            SendStartSession();
         }
 
         private bool HasSessionTimedOut(long now)

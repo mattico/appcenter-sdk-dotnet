@@ -8,5 +8,8 @@ namespace Microsoft.AppCenter.Analytics.Channel
         void Resume();
         void Pause();
         void Stop();
+        void DisableAutomaticSessionGeneration(bool isDisabled);
+        void StartSession();
+        void EndSession();
     }
 }

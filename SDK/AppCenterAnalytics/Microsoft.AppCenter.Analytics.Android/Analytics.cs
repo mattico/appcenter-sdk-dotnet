@@ -84,15 +84,16 @@ namespace Microsoft.AppCenter.Analytics
         }
 
         /// <summary>
-        /// TODO
+        ///  Disable automatic session generation.
         /// </summary>
+        /// <param name="isDisabled">True - if automatic session generation should be disabled, otherwise false.</param>
         public static void DisableAutomaticSessionGeneration(bool isDisabled)
         {
             //AndroidAnalytics.DisableAutomaticSessionGeneration(isDisabled);
         }
 
         /// <summary>
-        /// TODO
+        /// Start a new session if automatic session generation was disabled, otherwise nothing.
         /// </summary>
         public static void StartSession()
         {
@@ -100,7 +101,7 @@ namespace Microsoft.AppCenter.Analytics
         }
 
         /// <summary>
-        /// TODO
+        /// End session if automatic session generation was disabled, otherwise nothing.
         /// </summary>
         public static void EndSession()
         {
