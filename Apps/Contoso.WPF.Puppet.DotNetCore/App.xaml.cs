@@ -24,6 +24,7 @@ namespace Contoso.WPF.Puppet.DotNetCore
             AppCenter.LogLevel = LogLevel.Verbose;
             AppCenter.SetLogUrl("https://in-integration.dev.avalanch.es");
             AppCenter.SetCountryCode(string.IsNullOrEmpty(Settings.Default.CountryCode) ? null : Settings.Default.CountryCode);
+            Analytics.DisableAutomaticSessionGeneration(Settings.Default.DisableAutomaticSessionGeneration);
 
             // User callbacks.
             Crashes.ShouldAwaitUserConfirmation = ConfirmationHandler;

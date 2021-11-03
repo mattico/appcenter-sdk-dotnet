@@ -58,5 +58,17 @@ namespace Contoso.WinForms.Puppet.Properties {
                 this["TextErrorAttachments"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableAutomaticSessionGeneration {
+            get {
+                return ((bool)(this["DisableAutomaticSessionGeneration"]));
+            }
+            set {
+                this["DisableAutomaticSessionGeneration"] = value;
+            }
+        }
     }
 }

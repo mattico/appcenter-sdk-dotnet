@@ -55,6 +55,17 @@
                             <Button Name="TrackEvent" Content="Track event" Click="TrackEvent_Click"/>
                         </StackPanel>
                     </GroupBox>
+                    <GroupBox Header="Session Settings">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 8">
+                                <CheckBox Name="DisableAutomaticSessionGenerationCheckBox" Content="Disable Automatic Session Generation" Unchecked="DisableAutomaticSessionGeneration_Unchecked" Checked="DisableAutomaticSessionGeneration_Checked"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 8">
+                                <Button x:Name="StartSessionButton" Content="Start session" Margin="0, 0, 8, 0" Width="149" Click="StartSessionButton_Click"/>
+                                <Button x:Name="EndSessionButton" Content="End session" Margin="8, 0, 0, 0" Width="149" Click="EndSessionButton_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Crashes">

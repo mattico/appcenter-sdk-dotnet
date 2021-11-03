@@ -42,6 +42,7 @@ namespace Contoso.WPF.Puppet
             textAttachments = Settings.Default.TextErrorAttachments;
             TextAttachmentTextBox.Text = textAttachments;
             FileAttachmentLabel.Content = fileAttachments;
+            DisableAutomaticSessionGenerationCheckBox.IsChecked = Settings.Default.DisableAutomaticSessionGeneration;
             if (!string.IsNullOrEmpty(Settings.Default.CountryCode))
             {
                 CountryCodeEnableCheckbox.IsChecked = true;
@@ -325,6 +326,33 @@ namespace Contoso.WPF.Puppet
             AppCenter.SetMaxStorageSizeAsync(size);
             Settings.Default.StorageMaxSize = size;
             Settings.Default.Save();
+        }
+
+        private void DisableAutomaticSessionGeneration_Checked(object sender, RoutedEventArgs e)
+        {
+            DisableAutomaticSessionGeneration(true);
+        }
+
+        private void DisableAutomaticSessionGeneration_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DisableAutomaticSessionGeneration(false);
+        }
+
+        private void DisableAutomaticSessionGeneration(bool isDisabled)
+        {
+            Analytics.DisableAutomaticSessionGeneration(isDisabled);
+            Settings.Default.DisableAutomaticSessionGeneration = isDisabled;
+            Settings.Default.Save();
+        }
+
+        private void EndSessionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Analytics.EndSession();
+        }
+
+        private void StartSessionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Analytics.StartSession();
         }
     }
 }

@@ -66,6 +66,11 @@ namespace Contoso.WinUI.Desktop.Puppet
             {
                 StorageMaxSize.Text = storageSize.ToString();
             }
+            var isSessionGenerationDisabled = localSettings.Values[Constants.KeyDisableAutomaticSessionGeneration] as bool?;
+            if (isSessionGenerationDisabled != null)
+            {
+                DisableAutomatinSessionGenerationCheckBox.IsChecked = isSessionGenerationDisabled;
+            }
         }
 
         private void UpdateState()
@@ -439,5 +444,31 @@ namespace Contoso.WinUI.Desktop.Puppet
 
         [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto, PreserveSig = true, SetLastError = false)]
         public static extern IntPtr GetActiveWindow();
+
+        private void DisableAutomatinSessionGenerationCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            DisableAutomaticSessionGeneration(true);
+        }
+
+        private void DisableAutomatinSessionGenerationCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DisableAutomaticSessionGeneration(false);
+        }
+
+        private void DisableAutomaticSessionGeneration(bool isDisabled)
+        {
+            Analytics.DisableAutomaticSessionGeneration(isDisabled);
+            localSettings.Values[Constants.KeyDisableAutomaticSessionGeneration] = isDisabled;
+        }
+
+        private void StartSessionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Analytics.StartSession();
+        }
+
+        private void EndSessionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Analytics.EndSession();
+        }
     }
 }

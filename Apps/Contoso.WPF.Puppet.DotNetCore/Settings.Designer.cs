@@ -82,5 +82,17 @@ namespace Contoso.WPF.Puppet.DotNetCore {
                 this["StorageMaxSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableAutomaticSessionGeneration {
+            get {
+                return ((bool)(this["DisableAutomaticSessionGeneration"]));
+            }
+            set {
+                this["DisableAutomaticSessionGeneration"] = value;
+            }
+        }
     }
 }

@@ -22,5 +22,14 @@
                 <Button Text="Track Event" InputTransparent="true" Clicked="TrackEvent" FontAttributes="Bold" />
             </ViewCell>
         </TableSection>
+         <TableSection Title="Settings Session">
+             <SwitchCell Label="Disable Automatic Session Generation" OnChanged="DisableAutomaticSessionGenerationCellEnabled" x:Name="DisableAutomaticSessionGenerationCell" />
+             <ViewCell>
+                 <StackLayout Orientation="Vertical">
+                     <Button Text="Start Session" Clicked="StartSessionButtonClicked" InputTransparent="true" />
+                     <Button Text="End Session" Clicked="EndSessionButtonClicked" InputTransparent="true" />
+                 </StackLayout>
+             </ViewCell>
+         </TableSection>
     </TableView>
 </ContentPage>

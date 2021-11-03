@@ -86,6 +86,10 @@ namespace Contoso.Forms.Puppet
                 {
                     AppCenter.SetMaxStorageSizeAsync(size);
                 }
+                if (Current.Properties.ContainsKey(Constants.DisableAutomaticSessionGeneration) && Current.Properties[Constants.DisableAutomaticSessionGeneration] is bool isDisabled)
+                {
+                    Analytics.DisableAutomaticSessionGeneration(isDisabled);
+                }
                 AppCenter.Start(GetTokensString(), typeof(Analytics), typeof(Crashes), typeof(Distribute));
                 if (Current.Properties.ContainsKey(Constants.UserId) && Current.Properties[Constants.UserId] is string id)
                 {

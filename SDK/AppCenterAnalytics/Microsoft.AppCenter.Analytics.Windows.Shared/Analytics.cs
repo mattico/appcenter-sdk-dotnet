@@ -105,7 +105,7 @@ namespace Microsoft.AppCenter.Analytics
         {
             if (Instance.Channel != null)
             {
-                AppCenterLog.Error(Instance.LogTag, $"The automatic session generation should be installed before App Center start.");
+                AppCenterLog.Error(Instance.LogTag, $"The automatic session generation value should be installed before the App Center start.");
                 return;
             }
             if (Instance._sessionTracker == null)

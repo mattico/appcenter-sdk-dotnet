@@ -137,7 +137,7 @@ namespace Microsoft.AppCenter.Analytics.Channel
             lock (_lockObject)
             {
                 isAutomaticSessionGenerationDisabled = isDisabled;
-                var status = isDisabled ? "enabled" : "disabled";
+                var status = isDisabled ? "disabled" : "enabled";
                 AppCenterLog.Debug(Analytics.Instance.LogTag, $"Automatic session generation is {status}.");
             }
         }

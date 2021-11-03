@@ -53,6 +53,11 @@ namespace Contoso.WinUI.Desktop.Puppet
             {
                 AppCenter.SetMaxStorageSizeAsync((long)storageSize);
             }
+            var isSessionGenerationDisabled = localSettings.Values[Constants.KeyDisableAutomaticSessionGeneration] as bool?;
+            if (isSessionGenerationDisabled != null)
+            {
+                Analytics.DisableAutomaticSessionGeneration(isSessionGenerationDisabled.Value);
+            }
 
             // User callbacks.
             Crashes.ShouldProcessErrorReport = (report) =>

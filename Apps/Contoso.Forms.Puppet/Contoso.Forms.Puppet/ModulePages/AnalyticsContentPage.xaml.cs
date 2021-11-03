@@ -32,6 +32,10 @@ namespace Contoso.Forms.Puppet
             base.OnAppearing();
             EnabledSwitchCell.On = await Analytics.IsEnabledAsync();
             EnabledSwitchCell.IsEnabled = await AppCenter.IsEnabledAsync();
+            if (Application.Current.Properties.ContainsKey(Constants.DisableAutomaticSessionGeneration) && Application.Current.Properties[Constants.DisableAutomaticSessionGeneration] is bool isDisabled)
+            {
+                DisableAutomaticSessionGenerationCell.On = isDisabled;
+            }
         }
 
         async void AddProperty(object sender, EventArgs e)
@@ -82,6 +86,23 @@ namespace Contoso.Forms.Puppet
         void RefreshPropCount()
         {
             NumPropertiesLabel.Text = EventProperties.Count.ToString();
+        }
+
+        void DisableAutomaticSessionGenerationCellEnabled(object sender, ToggledEventArgs e)
+        {
+            Analytics.DisableAutomaticSessionGeneration(e.Value);
+            Application.Current.Properties[Constants.DisableAutomaticSessionGeneration] = e.Value;
+            _ = Application.Current.SavePropertiesAsync();
+        }
+
+        void StartSessionButtonClicked(object sender, ToggledEventArgs e)
+        {
+            Analytics.StartSession();
+        }
+
+        void EndSessionButtonClicked(object sender, ToggledEventArgs e)
+        {
+            Analytics.EndSession();
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Contoso.WinForms.Puppet.DotNetCore
             textAttachments = Settings.Default.TextErrorAttachments;
             TextAttachmentTextBox.Text = textAttachments;
             FileAttachmentPathLabel.Text = fileAttachments;
+            DisableAutomaticSessionGenerationCheckBox.Checked = Settings.Default.DisableAutomaticSessionGeneration;
             if (Settings.Default.StorageMaxSize > 0)
             {
                 StorageMaxSizeTextBox.Text = Settings.Default.StorageMaxSize.ToString();
@@ -228,6 +229,23 @@ namespace Contoso.WinForms.Puppet.DotNetCore
             AppCenter.SetMaxStorageSizeAsync(size);
             Settings.Default.StorageMaxSize = size;
             Settings.Default.Save();
+        }
+
+        private void DisableAutomaticSessionGenerationCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Analytics.DisableAutomaticSessionGeneration(DisableAutomaticSessionGenerationCheckBox.Checked);
+            Settings.Default.DisableAutomaticSessionGeneration = DisableAutomaticSessionGenerationCheckBox.Checked;
+            Settings.Default.Save();
+        }
+
+        private void EndSession_Click(object sender, EventArgs e)
+        {
+            Analytics.EndSession();
+        }
+
+        private void StartSession_Click(object sender, EventArgs e)
+        {
+            Analytics.StartSession();
         }
     }
 }
