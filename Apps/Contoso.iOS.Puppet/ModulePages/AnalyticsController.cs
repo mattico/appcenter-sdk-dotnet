@@ -55,6 +55,10 @@ namespace Contoso.iOS.Puppet
             AnalyticsEnabledSwitch.On = Analytics.IsEnabledAsync().Result;
             AnalyticsEnabledSwitch.Enabled = AppCenter.IsEnabledAsync().Result;
             NumPropertiesLabel.Text = mEventProperties.Count.ToString();
+
+            // Set disable session value.
+            var plist = NSUserDefaults.StandardUserDefaults;
+            DisableSessionGenerationSwitch.On = plist.BoolForKey(Constants.DisableSessionGenerationKey);
         }
 
         public override void PrepareForSegue(UIStoryboardSegue segue, NSObject sender)
@@ -72,6 +76,18 @@ namespace Contoso.iOS.Puppet
         {
             Analytics.SetEnabledAsync(AnalyticsEnabledSwitch.On).Wait();
             AnalyticsEnabledSwitch.On = Analytics.IsEnabledAsync().Result;
+        }
+
+        partial void SessionGenerationUpdate(NSObject sender)
+        {
+            Analytics.DisableAutomaticSessionGeneration(DisableSessionGenerationSwitch.On);
+            var plist = NSUserDefaults.StandardUserDefaults;
+            plist.SetBool(DisableSessionGenerationSwitch.On, Constants.DisableSessionGenerationKey);
+        }
+
+        partial void StartSession(NSObject sender)
+        {
+            Analytics.StartSession();
         }
 
         partial void AddProperty()

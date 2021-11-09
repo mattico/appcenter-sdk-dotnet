@@ -23,7 +23,7 @@
             </ViewCell>
         </TableSection>
          <TableSection Title="Settings Session">
-             <SwitchCell Label="Disable Automatic Session Generation" OnChanged="DisableAutomaticSessionGenerationCellEnabled" x:Name="DisableAutomaticSessionGenerationCell" />
+             <SwitchCell Text="Disable Automatic Session Generation" OnChanged="DisableAutomaticSessionGenerationCellEnabled" x:Name="DisableAutomaticSessionGenerationCell" />
              <ViewCell>
                  <StackLayout Orientation="Vertical">
                      <Button Text="Start Session" Clicked="StartSessionButtonClicked" InputTransparent="true" />

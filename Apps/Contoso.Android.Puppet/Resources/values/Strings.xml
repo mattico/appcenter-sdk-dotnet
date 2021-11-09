@@ -41,4 +41,6 @@
     <string name="add_property_dialog_cancel_button">Cancel</string>
     <string name="save">Save</string>
     <string name="change_storage_size">Change Storage Size</string>
+    <string name="disable_session_generation">Disable Session Generation</string>
+    <string name="start_session">Start Session</string>
 </resources>
