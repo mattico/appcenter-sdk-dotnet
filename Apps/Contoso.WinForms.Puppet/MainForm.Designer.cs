@@ -67,7 +67,6 @@ namespace Contoso.WinForms.Puppet
             this.CrashWithTestException = new System.Windows.Forms.Button();
             this.CrashesEnabled = new System.Windows.Forms.CheckBox();
             this.StartSession = new System.Windows.Forms.Button();
-            this.EndSession = new System.Windows.Forms.Button();
             this.Tabs.SuspendLayout();
             this.AppCenterTab.SuspendLayout();
             this.MiscGroupBox.SuspendLayout();
@@ -191,7 +190,6 @@ namespace Contoso.WinForms.Puppet
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.EndSession);
             this.groupBox1.Controls.Add(this.StartSession);
             this.groupBox1.Controls.Add(this.DisableAutomaticSessionGenerationCheckBox);
             this.groupBox1.Location = new System.Drawing.Point(9, 234);
@@ -512,16 +510,6 @@ namespace Contoso.WinForms.Puppet
             this.StartSession.UseVisualStyleBackColor = true;
             this.StartSession.Click += new System.EventHandler(this.StartSession_Click);
             // 
-            // EndSession
-            // 
-            this.EndSession.Location = new System.Drawing.Point(193, 69);
-            this.EndSession.Name = "EndSession";
-            this.EndSession.Size = new System.Drawing.Size(158, 23);
-            this.EndSession.TabIndex = 2;
-            this.EndSession.Text = "End Session";
-            this.EndSession.UseVisualStyleBackColor = true;
-            this.EndSession.Click += new System.EventHandler(this.EndSession_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -588,7 +576,6 @@ namespace Contoso.WinForms.Puppet
         private System.Windows.Forms.CheckBox AppCenterAllowNetworkRequest;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox DisableAutomaticSessionGenerationCheckBox;
-        private System.Windows.Forms.Button EndSession;
         private System.Windows.Forms.Button StartSession;
     }
 }

@@ -59,11 +59,6 @@ namespace Microsoft.AppCenter.Analytics.iOS.Bindings
         [Export("startSession")]
         void StartSession();
 
-        // + (void)endSession
-        [Static]
-        [Export("endSession")]
-        void EndSession();
-
         //// +(void)trackPage:(NSString *)pageName;
         //[Static]
         //[Export("trackPage:")]

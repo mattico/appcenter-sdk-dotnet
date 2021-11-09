@@ -170,6 +170,9 @@ namespace Microsoft.AppCenter.Analytics.Test.Windows
             _mockSessionTracker.Verify(tracker => tracker.Pause(), Times.Never());
             _mockSessionTracker.Verify(tracker => tracker.Resume(), Times.Once());
             _mockSessionTracker.Verify(tracker => tracker.Stop(), Times.Once());
+
+            // Verify that disable session will be never called.
+            _mockSessionTracker.Verify(tracker => tracker.DisableAutomaticSessionGeneration(It.IsAny<bool>()), Times.Never());
         }
 
         /// <summary>
@@ -178,7 +181,14 @@ namespace Microsoft.AppCenter.Analytics.Test.Windows
         [TestMethod]
         public void TrackEvent()
         {
+            // Start Analytics.
             Analytics.SetEnabledAsync(true).Wait();
+
+            // Disable session generation and verify that it will be not set after Analytics start.
+            Analytics.DisableAutomaticSessionGeneration(false);
+            _mockSessionTracker.Verify(tracker => tracker.DisableAutomaticSessionGeneration(It.IsAny<bool>()), Times.Never());
+
+            // Prepare group.
             Analytics.Instance.OnChannelGroupReady(_mockChannelGroup.Object, string.Empty);
             var eventName = "eventName";
             var key = "key";
@@ -199,8 +209,16 @@ namespace Microsoft.AppCenter.Analytics.Test.Windows
         [TestMethod]
         public void TrackEventInvalid()
         {
+            // Disable session generation.
+            Analytics.DisableAutomaticSessionGeneration(true);
+            _mockSessionTracker.Verify(tracker => tracker.DisableAutomaticSessionGeneration(It.IsAny<bool>()), Times.Never());
+
+            // Start Analytics.
             Analytics.SetEnabledAsync(true).Wait();
             Analytics.Instance.OnChannelGroupReady(_mockChannelGroup.Object, string.Empty);
+
+            // Verify that session generation will be set after Analytics start.
+            _mockSessionTracker.Verify(tracker => tracker.DisableAutomaticSessionGeneration(It.IsAny<bool>()), Times.Once());
 
             // Event name is null or empty
             Analytics.TrackEvent(null);

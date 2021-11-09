@@ -99,10 +99,5 @@ namespace Contoso.Forms.Puppet
         {
             Analytics.StartSession();
         }
-
-        void EndSessionButtonClicked(object sender, ToggledEventArgs e)
-        {
-            Analytics.EndSession();
-        }
     }
 }

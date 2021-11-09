@@ -124,14 +124,6 @@ namespace Microsoft.AppCenter.Analytics
             Instance._sessionTracker?.StartSession();
         }
 
-        /// <summary>
-        /// End session if automatic session generation was disabled, otherwise nothing.
-        /// </summary>
-        public static void EndSession()
-        {
-            Instance._sessionTracker?.EndSession();
-        }
-
         #endregion
 
         #region instance

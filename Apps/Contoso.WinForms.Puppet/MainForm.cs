@@ -240,11 +240,6 @@ namespace Contoso.WinForms.Puppet
             Settings.Default.Save();
         }
 
-        private void EndSession_Click(object sender, EventArgs e)
-        {
-            Analytics.EndSession();
-        }
-
         private void StartSession_Click(object sender, EventArgs e)
         {
             Analytics.StartSession();

@@ -160,23 +160,6 @@ namespace Microsoft.AppCenter.Analytics.Channel
             }
         }
 
-        /// <summary>
-        /// End session if automatic session generation was disabled, otherwise nothing.
-        /// </summary>
-        public void EndSession()
-        {
-            lock (_lockObject)
-            {
-                if (!isAutomaticSessionGenerationDisabled)
-                {
-                    AppCenterLog.Debug(Analytics.Instance.LogTag, $"Automatic session generation is enabled. Skip end session request.");
-                    return;
-                }
-                AppCenterLog.Debug(Analytics.Instance.LogTag, $"End a session with id: {SessionContext.SessionId}.");
-                SessionContext.SessionId = null;
-            }
-        }
-
         private void SendStartSession() 
         {
             SessionContext.SessionId = Guid.NewGuid();

@@ -77,13 +77,6 @@ namespace Microsoft.AppCenter.Analytics
         {
         }
 
-        /// <summary>
-        /// End session if automatic session generation was disabled, otherwise nothing.
-        /// </summary>
-        public static void EndSession()
-        {
-        }
-
         ///// Track a custom page.
 
         ///// <summary>

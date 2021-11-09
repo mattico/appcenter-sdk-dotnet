@@ -465,10 +465,5 @@ namespace Contoso.WinUI.Desktop.Puppet
         {
             Analytics.StartSession();
         }
-
-        private void EndSessionButton_Click(object sender, RoutedEventArgs e)
-        {
-            Analytics.EndSession();
-        }
     }
 }

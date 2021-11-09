@@ -10,6 +10,5 @@ namespace Microsoft.AppCenter.Analytics.Channel
         void Stop();
         void DisableAutomaticSessionGeneration(bool isDisabled);
         void StartSession();
-        void EndSession();
     }
 }

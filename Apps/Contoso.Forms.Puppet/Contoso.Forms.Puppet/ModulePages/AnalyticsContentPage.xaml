@@ -27,7 +27,6 @@
              <ViewCell>
                  <StackLayout Orientation="Vertical">
                      <Button Text="Start Session" Clicked="StartSessionButtonClicked" InputTransparent="true" />
-                     <Button Text="End Session" Clicked="EndSessionButtonClicked" InputTransparent="true" />
                  </StackLayout>
              </ViewCell>
          </TableSection>

@@ -107,14 +107,6 @@ namespace Microsoft.AppCenter.Analytics
             //iOSAnalytics.StartSession();
         }
 
-        /// <summary>
-        /// End session if automatic session generation was disabled, otherwise nothing.
-        /// </summary>
-        public static void EndSession()
-        {
-            //iOSAnalytics.EndSession();
-        }
-
         ///// <summary>
         ///// Track a custom page.
         ///// </summary>
